@@ -7,15 +7,15 @@ public class Twitter implements IObservable {
 
     public Twitter(){}
     public Twitter(List<IObserver> observers){
-        throw new RuntimeException();
+        throw new UnsupportedOperationException();
     }
 
     public List<IObserver> getObservers(){
-        throw new RuntimeException();
+        throw new UnsupportedOperationException();
     }
 
     public String getLastTwit(){
-        throw new RuntimeException();
+        throw new UnsupportedOperationException();
     }
 
     public void post(String twit){
@@ -23,25 +23,25 @@ public class Twitter implements IObservable {
     }
 
     private boolean exists(IObserver followerToFind){
-        throw new RuntimeException();
+        throw new UnsupportedOperationException();
     }
 
     public List<String> getTwits(){
-        throw new RuntimeException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void Subscribe(List<IObserver> observer) {
-        throw new RuntimeException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void Unsubscribe(IObserver observer) {
-        throw new RuntimeException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void Notify() {
-        throw new RuntimeException();
+        throw new UnsupportedOperationException();
     }
 }
