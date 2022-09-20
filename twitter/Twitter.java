@@ -44,4 +44,11 @@ public class Twitter implements IObservable {
     public void Notify() {
         throw new UnsupportedOperationException();
     }
+
+    public static class TwitterException extends Exception{}
+    public static class EmptyListOfSubscribersException extends TwitterException{}
+    public static class SubscriberAlreadyExistsException extends TwitterException{}
+    public static class SubscriberNotFoundException extends TwitterException{}
+
+
 }
