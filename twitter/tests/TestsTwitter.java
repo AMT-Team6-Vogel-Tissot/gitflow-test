@@ -1,17 +1,23 @@
+package tests;
+
+import src.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestTwitter {
+public class TestsTwitter {
 
     Twitter _twitter;
 
-    @BeforeAll
-    public void setup(){
+    @BeforeEach
+    void setup(){
         _twitter = new Twitter();
     }
 
@@ -25,6 +31,7 @@ public class TestTwitter {
         //event is called directly by the assertion
 
         //when
+        //assertThrows(UnsupportedOperationException.class, () -> _twitter.getObservers().size());
         assertEquals(exceptedAmountOfObservers, _twitter.getObservers().size());
     }
 
@@ -38,7 +45,7 @@ public class TestTwitter {
         //event is called directly by the assertion
 
         //when
-        assertEquals(exceptedAmountOfObservers, _twitter.getObservers().size());
+        Assertions.assertEquals(exceptedAmountOfObservers, _twitter.getObservers().size());
     }
 
     @Test
@@ -52,7 +59,7 @@ public class TestTwitter {
         //event is called directly by the assertion
 
         //when
-        assertEquals(exceptedAmountOfTwits, _twitter.getTwits().size());
+        Assertions.assertEquals(exceptedAmountOfTwits, _twitter.getTwits().size());
     }
 
     @Test
@@ -69,8 +76,7 @@ public class TestTwitter {
     }
 
     @Test
-    public void Subscribe_AddFirstSubscribers_Success()
-    {
+    public void Subscribe_AddFirstSubscribers_Success() throws Twitter.SubscriberAlreadyExistsException {
         //given
         //refere to Setup method
         int expectedAmountOfSubscribers = 15;
@@ -80,12 +86,11 @@ public class TestTwitter {
         _twitter.Subscribe(followers);
 
         //then
-        assertEquals(expectedAmountOfSubscribers, _twitter.getObservers().size());
+        Assertions.assertEquals(expectedAmountOfSubscribers, _twitter.getObservers().size());
     }
 
     @Test
-    public void Subscribe_AddSubscribersToExistingList_Success()
-    {
+    public void Subscribe_AddSubscribersToExistingList_Success() throws Twitter.SubscriberAlreadyExistsException {
         //given
         //refere to Setup method
         int expectedAmountOfSubscribers = 30;
@@ -97,17 +102,18 @@ public class TestTwitter {
         _twitter.Subscribe(followers2nd);
 
         //then
-        assertEquals(expectedAmountOfSubscribers, _twitter.getObservers().size());
+        Assertions.assertEquals(expectedAmountOfSubscribers, _twitter.getObservers().size());
     }
 
     @Test
-    public void Subscribe_SubscriberAlreadyExists_ThrowsException()
-    {
+    public void Subscribe_SubscriberAlreadyExists_ThrowsException() throws Twitter.SubscriberAlreadyExistsException {
         //given
         //refere to Setup method
         int expectedAmountOfSubscribers = 15;
         List<IObserver> followers = GenerateObserver(expectedAmountOfSubscribers);
+
         _twitter.Subscribe(followers);
+
         List<IObserver> followersDuplicate = List.of(followers.get(0));
 
         //when
@@ -118,8 +124,7 @@ public class TestTwitter {
     }
 
     @Test
-    public void Unsubscribe_NominalCase_Success()
-    {
+    public void Unsubscribe_NominalCase_Success() throws Twitter.SubscriberAlreadyExistsException, Twitter.EmptyListOfSubscribersException, Twitter.SubscriberNotFoundException {
         //given
         //refer to Setup method
         List<IObserver> followers = GenerateObserver(20);
@@ -129,7 +134,7 @@ public class TestTwitter {
         _twitter.Unsubscribe(followers.get(10));
 
         //then
-        assertEquals(_twitter.getObservers().size() - 1, followers.size());
+        Assertions.assertEquals(followers.size() - 1, _twitter.getObservers().size());
     }
 
     @Test
@@ -147,8 +152,7 @@ public class TestTwitter {
     }
 
     @Test
-    public void Unsubscribe_SubscriberNotFound_ThrowsException()
-    {
+    public void Unsubscribe_SubscriberNotFound_ThrowsException() throws Twitter.SubscriberAlreadyExistsException {
         //given
         //refere to Setup method
         IObserver followerNotFound = new Follower();
